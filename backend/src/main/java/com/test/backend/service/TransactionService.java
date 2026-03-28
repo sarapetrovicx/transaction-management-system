@@ -5,6 +5,7 @@ import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvValidationException;
 import com.test.backend.domain.Status;
 import com.test.backend.domain.Transaction;
+import com.test.backend.domain.TransactionRequest;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
@@ -54,7 +55,7 @@ public class TransactionService {
         return transactions;
     }
 
-    public void appendTransaction(Transaction transaction) throws IOException {
+    public void appendTransaction(TransactionRequest transaction) throws IOException {
         File file = new File(CSV_FILE);
         boolean fileExists = file.exists();
         try (CSVWriter writer = new CSVWriter(new FileWriter(file, true))) {
@@ -63,7 +64,7 @@ public class TransactionService {
                 writer.writeNext(header);
             }
             String[] entry = {
-                    transaction.getTransactionDate().toString(),
+                    LocalDate.now().toString(),
                     transaction.getAccountNumber(),
                     transaction.getAccountHolderName(),
                     transaction.getAmount().toString(),

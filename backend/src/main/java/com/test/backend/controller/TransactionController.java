@@ -1,7 +1,9 @@
 package com.test.backend.controller;
 
 import com.test.backend.domain.Transaction;
+import com.test.backend.domain.TransactionRequest;
 import com.test.backend.service.TransactionService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.List;
@@ -22,7 +24,7 @@ public class TransactionController {
     }
 
     @PostMapping
-    public String addTransaction(@RequestBody Transaction transaction) {
+    public String addTransaction(@Valid @RequestBody TransactionRequest transaction) {
         try {
             service.appendTransaction(transaction);
             return "Transaction added.";
