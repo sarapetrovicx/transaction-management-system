@@ -6,6 +6,7 @@ import com.opencsv.exceptions.CsvValidationException;
 import com.test.backend.domain.Status;
 import com.test.backend.domain.Transaction;
 import com.test.backend.domain.TransactionRequest;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
@@ -17,11 +18,15 @@ import java.util.List;
 @Service
 public class TransactionService {
 
-    private static final String CSV_FILE = "backend/transactions.csv";
+    private final String csvFile;
+
+    public TransactionService(@Value("${transactions.file}") String csvFile) {
+        this.csvFile = csvFile;
+    }
 
     public List<Transaction> getAllTransactions() {
         List<Transaction> transactions = new ArrayList<>();
-        File file = new File(CSV_FILE);
+        File file = new File(csvFile);
 
         if (!file.exists()) {
             return transactions;
@@ -56,7 +61,7 @@ public class TransactionService {
     }
 
     public void appendTransaction(TransactionRequest transaction) throws IOException {
-        File file = new File(CSV_FILE);
+        File file = new File(csvFile);
         boolean fileExists = file.exists();
         try (CSVWriter writer = new CSVWriter(new FileWriter(file, true))) {
             if (!fileExists) {
