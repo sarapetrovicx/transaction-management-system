@@ -1,6 +1,7 @@
 package com.test.backend.service;
 
 import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvValidationException;
 import com.test.backend.domain.Status;
 import com.test.backend.domain.Transaction;
@@ -15,9 +16,17 @@ import java.util.List;
 @Service
 public class TransactionService {
 
+    private static final String CSV_FILE = "backend/transactions.csv";
+
     public List<Transaction> getAllTransactions() {
         List<Transaction> transactions = new ArrayList<>();
-        try (InputStream is = getClass().getResourceAsStream("/transactions.csv");
+        File file = new File(CSV_FILE);
+
+        if (!file.exists()) {
+            return transactions;
+        }
+
+        try (InputStream is = new FileInputStream(file);
              InputStreamReader isr = new InputStreamReader(is);
              CSVReader reader = new CSVReader(isr)) {
             String[] line;
@@ -46,5 +55,21 @@ public class TransactionService {
     }
 
     public void appendTransaction(Transaction transaction) throws IOException {
+        File file = new File(CSV_FILE);
+        boolean fileExists = file.exists();
+        try (CSVWriter writer = new CSVWriter(new FileWriter(file, true))) {
+            if (!fileExists) {
+                String[] header = {"Transaction Date","Account Number","Account Holder Name","Amount","Status"};
+                writer.writeNext(header);
+            }
+            String[] entry = {
+                    transaction.getTransactionDate().toString(),
+                    transaction.getAccountNumber(),
+                    transaction.getAccountHolderName(),
+                    transaction.getAmount().toString(),
+                    transaction.getStatus().toString()
+            };
+            writer.writeNext(entry);
+        }
     }
 }
