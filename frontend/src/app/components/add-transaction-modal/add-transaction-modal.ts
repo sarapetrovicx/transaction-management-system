@@ -1,5 +1,5 @@
 import { Component, ViewChild, TemplateRef } from '@angular/core'
-import { FormsModule } from '@angular/forms'
+import { FormsModule, NgForm } from '@angular/forms'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { TransactionService } from '../../services/transaction'
 
@@ -26,7 +26,11 @@ export class AddTransactionModal {
     this.modalService.open(this.modalContent, { centered: true })
   }
 
-  submit() {
+  submit(form: NgForm) {
+    if (form.invalid) {
+      Object.values(form.controls).forEach(control => control.markAsTouched())
+      return
+    }
     this.transactionService.addTransaction(this.transaction)
       .subscribe({
         next: () => {

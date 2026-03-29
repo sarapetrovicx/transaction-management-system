@@ -8,20 +8,51 @@
     <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
   </div>
   <div class="modal-body">
-    <form>
+    <form #transactionForm="ngForm">
       <div class="mb-3">
         <label class="form-label">Account Number</label>
-        <input type="text" class="form-control" [(ngModel)]="transaction.accountNumber" name="accountNumber" required>
+        <input type="text"
+               class="form-control"
+               [(ngModel)]="transaction.accountNumber"
+               name="accountNumber"
+               required
+               pattern="^\d{4}-\d{4}-\d{4}$"
+               placeholder="7289-3445-1121"
+               #accountNumber="ngModel"
+               [class.is-invalid]="accountNumber.invalid && accountNumber.touched">
+        <div class="invalid-feedback">
+          Please enter a valid account number (format: 1234-5678-9012)
+        </div>
       </div>
 
       <div class="mb-3">
         <label class="form-label">Account Holder Name</label>
-        <input type="text" class="form-control" [(ngModel)]="transaction.accountHolderName" name="accountHolderName" required>
+        <input type="text"
+               class="form-control"
+               [(ngModel)]="transaction.accountHolderName"
+               name="accountHolderName"
+               required
+               #accountHolderName="ngModel"
+               [class.is-invalid]="accountHolderName.invalid && accountHolderName.touched">
+        <div class="invalid-feedback">
+          Account holder name is required
+        </div>
       </div>
 
       <div class="mb-3">
         <label class="form-label">Amount</label>
-        <input type="number" class="form-control" [(ngModel)]="transaction.amount" name="amount" required min="0.01" step="0.01">
+        <input type="number"
+               class="form-control"
+               [(ngModel)]="transaction.amount"
+               name="amount"
+               required
+               min="0.01"
+               step="0.01"
+               #amount="ngModel"
+               [class.is-invalid]="amount.invalid && amount.touched">
+        <div class="invalid-feedback">
+          Amount must be greater than 0
+        </div>
       </div>
 
       <div class="mb-3">
@@ -36,6 +67,6 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Cancel</button>
-    <button type="button" class="btn btn-primary" (click)="submit()">Save Transaction</button>
+    <button type="button" class="btn btn-primary" (click)="submit(transactionForm)" [disabled]="transactionForm.invalid">Save Transaction</button>
   </div>
 </ng-template>
