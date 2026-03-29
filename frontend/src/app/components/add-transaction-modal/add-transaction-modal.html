@@ -1,1 +1,31 @@
-<p>add-transaction-modal works!</p>
+<button (click)="open()">Add Transaction</button>
+
+<div *ngIf="showModal">
+
+  <h3>Add Transaction</h3>
+
+  <form (ngSubmit)="submit()">
+
+    <label>Account Number</label>
+    <input type="text" [(ngModel)]="transaction.accountNumber" name="accountNumber">
+
+    <label>Account Holder Name</label>
+    <input type="text" [(ngModel)]="transaction.accountHolderName" name="accountHolderName">
+
+    <label>Amount</label>
+    <input type="number" [(ngModel)]="transaction.amount" name="amount">
+
+    <label>Status</label>
+    <select [(ngModel)]="transaction.status" name="status">
+      <option>Pending</option>
+      <option>Settled</option>
+    </select>
+
+    <br><br>
+
+    <button type="submit">Save</button>
+    <button type="button" (click)="close()">Cancel</button>
+
+  </form>
+
+</div>
