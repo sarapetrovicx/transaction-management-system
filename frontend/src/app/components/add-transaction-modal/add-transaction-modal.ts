@@ -9,7 +9,7 @@ import { TransactionService } from '../../services/transaction'
   imports: [CommonModule, FormsModule],
   templateUrl: './add-transaction-modal.html'
 })
-export class AddTransactionModalComponent {
+export class AddTransactionModal {
 
   @Output()
   transactionAdded = new EventEmitter()

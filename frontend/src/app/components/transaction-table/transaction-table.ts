@@ -2,15 +2,15 @@ import { Component, OnInit } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { TransactionService } from '../../services/transaction'
 import { Transaction } from '../../models/transaction'
-import { AddTransactionModalComponent } from '../add-transaction-modal/add-transaction-modal'
+import { AddTransactionModal } from '../add-transaction-modal/add-transaction-modal'
 
 @Component({
   selector: 'app-transaction-table',
   standalone: true,
-  imports: [CommonModule, AddTransactionModalComponent],
+  imports: [CommonModule, AddTransactionModal],
   templateUrl: './transaction-table.html'
 })
-export class TransactionTableComponent implements OnInit {
+export class TransactionTable implements OnInit {
 
   transactions: Transaction[] = []
 
