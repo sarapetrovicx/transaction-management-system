@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { CommonModule } from '@angular/common'
+import { CommonModule, CurrencyPipe } from '@angular/common'
 import { TransactionService } from '../../services/transaction'
 import { Transaction } from '../../models/transaction'
 import { AddTransactionModal } from '../add-transaction-modal/add-transaction-modal'
@@ -7,7 +7,7 @@ import { AddTransactionModal } from '../add-transaction-modal/add-transaction-mo
 @Component({
   selector: 'app-transaction-table',
   standalone: true,
-  imports: [CommonModule, AddTransactionModal],
+  imports: [CommonModule, CurrencyPipe, AddTransactionModal],
   templateUrl: './transaction-table.html'
 })
 export class TransactionTable implements OnInit {

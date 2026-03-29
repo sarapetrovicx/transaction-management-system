@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Output } from '@angular/core'
+import { Component, ViewChild, TemplateRef } from '@angular/core'
 import { FormsModule } from '@angular/forms'
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { TransactionService } from '../../services/transaction'
 
 @Component({
@@ -10,33 +11,26 @@ import { TransactionService } from '../../services/transaction'
 })
 export class AddTransactionModal {
 
-  @Output()
-  transactionAdded = new EventEmitter()
-
-  showModal = false
+  @ViewChild('modalContent') modalContent!: TemplateRef<any>
 
   transaction = {
     accountNumber: '',
     accountHolderName: '',
-    amount: 0,
+    amount: 1,
     status: 'Pending'
   }
 
-  constructor(private transactionService: TransactionService) {}
+  constructor(private transactionService: TransactionService, private modalService: NgbModal) {}
 
   open() {
-    this.showModal = true
-  }
-
-  close() {
-    this.showModal = false
+    this.modalService.open(this.modalContent, { centered: true })
   }
 
   submit() {
     this.transactionService.addTransaction(this.transaction)
       .subscribe({
         next: () => {
-          this.close()
+          this.modalService.dismissAll()
           window.location.reload()
         },
         error: (err) => {
