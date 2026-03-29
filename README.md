@@ -13,8 +13,9 @@ Before running the application, install the following tools.
 ## Install Java 21
 
 Download and install **Java 21 JDK**.
-
-Verify installation:
+1. Go to: https://www.oracle.com/java/technologies/downloads/#java21
+2. Download JDK 21 for your operating system.
+3. After installation, verify it works:
 
 ```
 java -version
@@ -284,5 +285,7 @@ Expected behavior:
 * Transactions are persisted in a **CSV file** instead of a database for simplicity.
 * The backend performs basic validation on transaction input.
 * The frontend communicates with the backend using HTTP REST requests.
+* Parts of the frontend implementation, mostly HTML templates and CSS styling, were assisted by AI tools, as my primary professional experience is focused on backend development rather than frontend development.
+* This documentation was also mostly generated with the assistance of AI tools.
 
 ---
