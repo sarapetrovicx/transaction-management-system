@@ -17,7 +17,7 @@ export class TransactionService {
     return this.http.get<Transaction[]>(this.apiUrl)
   }
 
-  addTransaction(transaction: TransactionRequest): Observable<any> {
-    return this.http.post(this.apiUrl, transaction)
+  addTransaction(transaction: TransactionRequest): Observable<string> {
+    return this.http.post(this.apiUrl, transaction, { responseType: 'text' })
   }
 }

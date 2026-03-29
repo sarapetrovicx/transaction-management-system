@@ -1,31 +1,31 @@
 <button (click)="open()">Add Transaction</button>
 
-<div *ngIf="showModal">
+@if (showModal) {
+  <div class="modal">
+    <h3>Add Transaction</h3>
 
-  <h3>Add Transaction</h3>
+    <form (ngSubmit)="submit()">
 
-  <form (ngSubmit)="submit()">
+      <label>Account Number</label>
+      <input type="text" [(ngModel)]="transaction.accountNumber" name="accountNumber" required>
 
-    <label>Account Number</label>
-    <input type="text" [(ngModel)]="transaction.accountNumber" name="accountNumber">
+      <label>Account Holder Name</label>
+      <input type="text" [(ngModel)]="transaction.accountHolderName" name="accountHolderName" required>
 
-    <label>Account Holder Name</label>
-    <input type="text" [(ngModel)]="transaction.accountHolderName" name="accountHolderName">
+      <label>Amount</label>
+      <input type="number" [(ngModel)]="transaction.amount" name="amount" required>
 
-    <label>Amount</label>
-    <input type="number" [(ngModel)]="transaction.amount" name="amount">
+      <label>Status</label>
+      <select [(ngModel)]="transaction.status" name="status">
+        <option value="Pending">Pending</option>
+        <option value="Settled">Settled</option>
+      </select>
 
-    <label>Status</label>
-    <select [(ngModel)]="transaction.status" name="status">
-      <option>Pending</option>
-      <option>Settled</option>
-    </select>
+      <br><br>
 
-    <br><br>
+      <button type="button" (click)="submit()">Save</button>
+      <button type="button" (click)="close()">Cancel</button>
 
-    <button type="submit">Save</button>
-    <button type="button" (click)="close()">Cancel</button>
-
-  </form>
-
-</div>
+    </form>
+  </div>
+}

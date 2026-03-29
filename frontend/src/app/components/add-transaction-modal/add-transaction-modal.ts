@@ -1,12 +1,11 @@
 import { Component, EventEmitter, Output } from '@angular/core'
-import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms'
 import { TransactionService } from '../../services/transaction'
 
 @Component({
   selector: 'app-add-transaction-modal',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule],
   templateUrl: './add-transaction-modal.html'
 })
 export class AddTransactionModal {
@@ -35,9 +34,14 @@ export class AddTransactionModal {
 
   submit() {
     this.transactionService.addTransaction(this.transaction)
-      .subscribe(() => {
-        this.transactionAdded.emit()
-        this.close()
+      .subscribe({
+        next: () => {
+          this.close()
+          window.location.reload()
+        },
+        error: (err) => {
+          console.error('Error adding transaction:', err)
+        }
       })
   }
 }
