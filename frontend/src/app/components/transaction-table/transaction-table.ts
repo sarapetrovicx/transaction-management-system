@@ -8,7 +8,8 @@ import { AddTransactionModal } from '../add-transaction-modal/add-transaction-mo
   selector: 'app-transaction-table',
   standalone: true,
   imports: [CommonModule, CurrencyPipe, AddTransactionModal],
-  templateUrl: './transaction-table.html'
+  templateUrl: './transaction-table.html',
+  styleUrls: ['./transaction-table.css']
 })
 export class TransactionTable implements OnInit {
 

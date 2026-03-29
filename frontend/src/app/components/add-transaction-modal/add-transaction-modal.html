@@ -1,23 +1,26 @@
-<button class="btn btn-primary" (click)="open()">
-  Add Transaction
+<button class="btn btn-primary btn-lg shadow-sm d-flex align-items-center gap-2" (click)="open()">
+  <span class="fs-5">+</span> Add Transaction
 </button>
 
 <ng-template #modalContent let-modal>
-  <div class="modal-header">
-    <h5 class="modal-title">Add New Transaction</h5>
+  <div class="modal-header border-0 pb-0">
+    <div>
+      <h4 class="modal-title fw-bold">💳 Add New Transaction</h4>
+      <p class="text-muted mb-0 small">Fill in the details below</p>
+    </div>
     <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
   </div>
-  <div class="modal-body">
+  <div class="modal-body pt-4">
     <form #transactionForm="ngForm">
-      <div class="mb-3">
-        <label class="form-label">Account Number</label>
+      <div class="mb-4">
+        <label class="form-label fw-semibold">Account Number</label>
         <input type="text"
-               class="form-control"
+               class="form-control form-control-lg"
                [(ngModel)]="transaction.accountNumber"
                name="accountNumber"
                required
                pattern="^\d{4}-\d{4}-\d{4}$"
-               placeholder="7289-3445-1121"
+               placeholder="1234-5678-9012"
                #accountNumber="ngModel"
                [class.is-invalid]="accountNumber.invalid && accountNumber.touched">
         <div class="invalid-feedback">
@@ -25,13 +28,14 @@
         </div>
       </div>
 
-      <div class="mb-3">
-        <label class="form-label">Account Holder Name</label>
+      <div class="mb-4">
+        <label class="form-label fw-semibold">Account Holder Name</label>
         <input type="text"
-               class="form-control"
+               class="form-control form-control-lg"
                [(ngModel)]="transaction.accountHolderName"
                name="accountHolderName"
                required
+               placeholder="John Doe"
                #accountHolderName="ngModel"
                [class.is-invalid]="accountHolderName.invalid && accountHolderName.touched">
         <div class="invalid-feedback">
@@ -39,29 +43,35 @@
         </div>
       </div>
 
-      <div class="mb-3">
-        <label class="form-label">Amount</label>
-        <input type="number"
-               class="form-control"
-               [(ngModel)]="transaction.amount"
-               name="amount"
-               required
-               min="0.01"
-               step="0.01"
-               #amount="ngModel"
-               [class.is-invalid]="amount.invalid && amount.touched">
-        <div class="invalid-feedback">
-          Amount must be greater than 0
+      <div class="row">
+        <div class="col-md-6 mb-4">
+          <label class="form-label fw-semibold">Amount</label>
+          <div class="input-group input-group-lg">
+            <span class="input-group-text">$</span>
+            <input type="number"
+                   class="form-control"
+                   [(ngModel)]="transaction.amount"
+                   name="amount"
+                   required
+                   min="0.01"
+                   step="0.01"
+                   placeholder="0.00"
+                   #amount="ngModel"
+                   [class.is-invalid]="amount.invalid && amount.touched">
+            <div class="invalid-feedback">
+              Amount must be greater than 0
+            </div>
+          </div>
         </div>
-      </div>
 
-      <div class="mb-3">
-        <label class="form-label">Status</label>
-        <select class="form-select" [(ngModel)]="transaction.status" name="status">
-          <option value="Pending">Pending</option>
-          <option value="Settled">Settled</option>
-          <option value="Failed">Failed</option>
-        </select>
+        <div class="col-md-6 mb-4">
+          <label class="form-label fw-semibold">Status</label>
+          <select class="form-select form-select-lg" [(ngModel)]="transaction.status" name="status">
+            <option value="Pending">Pending</option>
+            <option value="Settled">Settled</option>
+            <option value="Failed">Failed</option>
+          </select>
+        </div>
       </div>
     </form>
   </div>

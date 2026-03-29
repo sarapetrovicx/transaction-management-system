@@ -7,7 +7,8 @@ import { TransactionService } from '../../services/transaction'
   selector: 'app-add-transaction-modal',
   standalone: true,
   imports: [FormsModule],
-  templateUrl: './add-transaction-modal.html'
+  templateUrl: './add-transaction-modal.html',
+  styleUrls: ['./add-transaction-modal.css']
 })
 export class AddTransactionModal {
 

@@ -1,42 +1,68 @@
-<div class="container mt-4">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2>Transactions</h2>
-    <app-add-transaction-modal></app-add-transaction-modal>
-  </div>
+<div class="container mt-5">
+  <div class="card shadow-sm">
+    <div class="card-header bg-white py-3">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <h4 class="mb-0 fw-bold text-primary">💳 Transactions</h4>
+          <small class="text-muted">Manage your transaction records</small>
+        </div>
+        <app-add-transaction-modal></app-add-transaction-modal>
+      </div>
+    </div>
 
-  <div class="table-responsive">
-    <table class="table table-striped table-hover">
-      <thead class="table-dark">
-      <tr>
-        <th>Date</th>
-        <th>Account Number</th>
-        <th>Account Holder</th>
-        <th>Amount</th>
-        <th>Status</th>
-      </tr>
-      </thead>
-      <tbody>
-        @for (t of transactions; track $index) {
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead class="bg-light">
           <tr>
-            <td>{{t.transactionDate}}</td>
-            <td>{{t.accountNumber}}</td>
-            <td>{{t.accountHolderName}}</td>
-            <td>{{t.amount | currency}}</td>
-            <td>
-              <span class="badge"
-                    [class.bg-warning]="t.status === 'Pending'"
-                    [class.bg-success]="t.status === 'Settled'"
-                    [class.bg-danger]="t.status === 'Failed'">
-                {{t.status}}
-              </span>
-            </td>
+            <th class="px-4 py-3">Date</th>
+            <th class="py-3">Account Number</th>
+            <th class="py-3">Account Holder</th>
+            <th class="py-3 text-end">Amount</th>
+            <th class="py-3 text-center">Status</th>
           </tr>
-        } @empty {
-          <tr>
-            <td colspan="5" class="text-center text-muted">No transactions found</td>
-          </tr>
-        }
-      </tbody>
-    </table>
+          </thead>
+          <tbody>
+            @for (t of transactions; track $index) {
+              <tr>
+                <td class="px-4">
+                  <span class="text-muted">📅</span> {{t.transactionDate}}
+                </td>
+                <td>
+                  <code class="bg-light px-2 py-1 rounded">{{t.accountNumber}}</code>
+                </td>
+                <td>
+                  <div class="fw-semibold">{{t.accountHolderName}}</div>
+                </td>
+                <td class="text-end">
+                  <span class="fw-bold text-success">{{t.amount | currency}}</span>
+                </td>
+                <td class="text-center">
+                  <span class="badge rounded-pill px-3 py-2 status-badge"
+                        [class.status-pending]="t.status === 'Pending'"
+                        [class.status-settled]="t.status === 'Settled'"
+                        [class.status-failed]="t.status === 'Failed'">
+                    {{t.status}}
+                  </span>
+                </td>
+              </tr>
+            } @empty {
+              <tr>
+                <td colspan="5" class="text-center py-5">
+                  <div class="text-muted">
+                    <h5>📭 No transactions found</h5>
+                    <p class="mb-0">Click "Add Transaction" to create your first record</p>
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card-footer bg-white text-muted small">
+      Total: {{transactions.length}} transaction(s)
+    </div>
   </div>
 </div>
