@@ -63,9 +63,15 @@ public class TransactionService {
     public void appendTransaction(TransactionRequest transaction) throws IOException {
         File file = new File(csvFile);
         boolean fileExists = file.exists();
-        try (CSVWriter writer = new CSVWriter(new FileWriter(file, true))) {
+
+        try (CSVWriter writer = new CSVWriter(new FileWriter(file, true),
+                CSVWriter.DEFAULT_SEPARATOR,
+                CSVWriter.NO_QUOTE_CHARACTER,
+                CSVWriter.DEFAULT_ESCAPE_CHARACTER,
+                CSVWriter.DEFAULT_LINE_END)) {
+
             if (!fileExists) {
-                String[] header = {"Transaction Date","Account Number","Account Holder Name","Amount","Status"};
+                String[] header = {"Transaction Date", "Account Number", "Account Holder Name", "Amount", "Status"};
                 writer.writeNext(header);
             }
             String[] entry = {

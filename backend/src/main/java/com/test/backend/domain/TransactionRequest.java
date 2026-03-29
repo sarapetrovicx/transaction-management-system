@@ -1,9 +1,7 @@
 package com.test.backend.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
 
@@ -11,6 +9,7 @@ import java.math.BigDecimal;
 public class TransactionRequest {
 
     @NotBlank
+    @Pattern(regexp = "^\\d{4}-\\d{4}-\\d{4}$", message = "Account number must be in format: 1234-5678-9012")
     private String accountNumber;
 
     @NotBlank
